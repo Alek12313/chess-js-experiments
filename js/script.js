@@ -1,10 +1,7 @@
-var board,
-    game = new Chess();
+var board;
+var game = new Chess();
 
-/* "ИИ" начинается ниже */
-
-var minimaxRoot =function(depth, game, isMaximisingPlayer) {
-
+var minimaxRoot = function(depth, game, isMaximisingPlayer) {
     var newGameMoves = game.ugly_moves();
     var bestMove = -9999;
     var bestMoveFound;
@@ -23,13 +20,12 @@ var minimaxRoot =function(depth, game, isMaximisingPlayer) {
 };
 
 var minimax = function (depth, game, alpha, beta, isMaximisingPlayer) {
+    // console.log("ping");
     positionCount++;
     if (depth === 0) {
         return -evaluateBoard(game.board());
     }
-
     var newGameMoves = game.ugly_moves();
-
     if (isMaximisingPlayer) {
         var bestMove = -9999;
         for (var i = 0; i < newGameMoves.length; i++) {
@@ -42,7 +38,7 @@ var minimax = function (depth, game, alpha, beta, isMaximisingPlayer) {
             }
         }
         return bestMove;
-    } 
+    }
     else {
         var bestMove = 9999;
         for (var i = 0; i < newGameMoves.length; i++) {
@@ -98,55 +94,57 @@ var knightEval =
         [-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0]
     ];
 
-var bishopEvalWhite = [
-    [ -2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0],
-    [ -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
-    [ -1.0,  0.0,  0.5,  1.0,  1.0,  0.5,  0.0, -1.0],
-    [ -1.0,  0.5,  0.5,  1.0,  1.0,  0.5,  0.5, -1.0],
-    [ -1.0,  0.0,  1.0,  1.0,  1.0,  1.0,  0.0, -1.0],
-    [ -1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0, -1.0],
-    [ -1.0,  0.5,  0.0,  0.0,  0.0,  0.0,  0.5, -1.0],
-    [ -2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0]
-];
+var bishopEvalWhite =
+    [
+        [ -2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0],
+        [ -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
+        [ -1.0,  0.0,  0.5,  1.0,  1.0,  0.5,  0.0, -1.0],
+        [ -1.0,  0.5,  0.5,  1.0,  1.0,  0.5,  0.5, -1.0],
+        [ -1.0,  0.0,  1.0,  1.0,  1.0,  1.0,  0.0, -1.0],
+        [ -1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0, -1.0],
+        [ -1.0,  0.5,  0.0,  0.0,  0.0,  0.0,  0.5, -1.0],
+        [ -2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0]
+    ];
 
 var bishopEvalBlack = reverseArray(bishopEvalWhite);
 
-var rookEvalWhite = [
-    [  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
-    [  0.5,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  0.5],
-    [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
-    [  0.0,   0.0, 0.0,  0.5,  0.5,  0.0,  0.0,  0.0]
-];
+var rookEvalWhite =
+    [
+        [  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0],
+        [  0.5,  1.0,  1.0,  1.0,  1.0,  1.0,  1.0,  0.5],
+        [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+        [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+        [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+        [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+        [ -0.5,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -0.5],
+        [  0.0,   0.0, 0.0,  0.5,  0.5,  0.0,  0.0,  0.0]
+    ];
 
 var rookEvalBlack = reverseArray(rookEvalWhite);
 
 var evalQueen =
     [
-    [ -2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0],
-    [ -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
-    [ -1.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
-    [ -0.5,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5],
-    [  0.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5],
-    [ -1.0,  0.5,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
-    [ -1.0,  0.0,  0.5,  0.0,  0.0,  0.0,  0.0, -1.0],
-    [ -2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0]
-];
+        [ -2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0],
+        [ -1.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0, -1.0],
+        [ -1.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
+        [ -0.5,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5],
+        [  0.0,  0.0,  0.5,  0.5,  0.5,  0.5,  0.0, -0.5],
+        [ -1.0,  0.5,  0.5,  0.5,  0.5,  0.5,  0.0, -1.0],
+        [ -1.0,  0.0,  0.5,  0.0,  0.0,  0.0,  0.0, -1.0],
+        [ -2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0]
+    ];
 
-var kingEvalWhite = [
-
-    [ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
-    [ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
-    [ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
-    [ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
-    [ -2.0, -3.0, -3.0, -4.0, -4.0, -3.0, -3.0, -2.0],
-    [ -1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0],
-    [  2.0,  2.0,  0.0,  0.0,  0.0,  0.0,  2.0,  2.0 ],
-    [  2.0,  3.0,  1.0,  0.0,  0.0,  1.0,  3.0,  2.0 ]
-];
+var kingEvalWhite =
+    [
+        [ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+        [ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+        [ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+        [ -3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0],
+        [ -2.0, -3.0, -3.0, -4.0, -4.0, -3.0, -3.0, -2.0],
+        [ -1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0],
+        [  2.0,  2.0,  0.0,  0.0,  0.0,  0.0,  2.0,  2.0 ],
+        [  2.0,  3.0,  1.0,  0.0,  0.0,  1.0,  3.0,  2.0 ]
+    ];
 
 var kingEvalBlack = reverseArray(kingEvalWhite);
 
@@ -175,9 +173,6 @@ var getPieceValue = function (piece, x, y) {
     return piece.color === 'w' ? absoluteValue : -absoluteValue;
 };
 
-
-/* Визуализация доски и отображение ходов */
-
 var onDragStart = function (source, piece, position, orientation) {
     if (game.in_checkmate() === true || game.in_draw() === true ||
         piece.search(/^b/) !== -1) {
@@ -191,7 +186,7 @@ var makeBestMove = function () {
     board.position(game.fen());
     renderMoveHistory(game);
     if (game.game_over()) {
-        alert('Игра окончена');
+        alert('пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
     }
 };
 
@@ -199,7 +194,7 @@ var makeBestMove = function () {
 var positionCount;
 var getBestMove = function (game) {
     if (game.game_over()) {
-        alert('Игра окончена');
+        alert('пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
     }
 
     positionCount = 0;
@@ -212,7 +207,7 @@ var getBestMove = function (game) {
     var positionsPerS = (positionCount * 1000 / moveTime).toFixed(2);
 
     $('#position-count').text(positionCount);
-    $('#time').text(moveTime/1000 + ' сек');
+    $('#time').text(moveTime/1000 + ' пїЅпїЅпїЅ');
     $('#positions-per-s').text(positionsPerS);
     return bestMove;
 };
@@ -220,7 +215,7 @@ var getBestMove = function (game) {
 var renderMoveHistory = function (g) {
     var moves = g.history();
     var historyElement = $('#move-history').empty();
-    var fenElement = $('#fen').empty();    
+    var fenElement = $('#fen').empty();
     historyElement.empty();
     for (var i = 0; i < moves.length; i = i + 2) {
      historyElement.append('<span>' + (i/2+1) + '. ' +moves[i] + ' ' + ( moves[i + 1] ? moves[i + 1] : ' ') + '</span><br>')

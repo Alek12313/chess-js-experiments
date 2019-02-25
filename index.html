@@ -2,28 +2,29 @@
 <html>
  <head>
   <meta charset="windows-1251">
-  <title>Простой ИИ для шахмат на Javascript</title>
+  <title>Chess AI JS</title>
   <link rel='stylesheet' type="text/css" href='css/style.css'/>
  </head>
  <body>
 
-<div class="info">Простой ИИ для шахмат. Ваши фигуры - белые<br>&nbsp;</div>
+<div class="info">Simple chess <br>&nbsp;</div>
 <div id="board" class="board"></div>
 <div class="info">
- Глубина поиска:
+ Search deep:
  <select id="search-depth">
   <option value="1">1</option>
   <option value="2">2</option>
   <option value="3" selected>3</option>
   <option value="4">4</option>
   <option value="5">5</option>
+  <option value="10">10</option>
+  <option value="20">20</option>
  </select>
+ <br>Posicions check: <span id="position-count"></span></span>
  <br>
- <span>Проверено позиций: <span id="position-count"></span></span>
+ <span>Time: <span id="time"></span></span>
  <br>
- <span>Время: <span id="time"></span></span>
- <br>
- <span>Позиций в секунду: <span id="positions-per-s"></span></span>
+ <span>Positions per second: <span id="positions-per-s"></span></span>
  <br>
  <div id="move-history" class="move-history"></div>
  <div id="fen" class="fen"></div>
